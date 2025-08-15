@@ -22,7 +22,7 @@ async def fetch_reports_async():
 
         reports.append(
             {
-                "id": node.get("id") or report_data.get("databaseId"),  # безопасный ID
+                "id": node.get("id") or report_data.get("databaseId"),
                 "title": report_data.get("title", ""),
                 "url": report_data.get("url", ""),
                 "reporter": node.get("reporter", {}).get("username", "unknown"),

@@ -53,5 +53,4 @@ GRAPHQL_VARIABLES = {
 
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
 
-# --- Интервал проверки в секундах ---
 CHECK_INTERVAL = 600

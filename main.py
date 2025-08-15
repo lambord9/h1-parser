@@ -1,4 +1,5 @@
 import asyncio
+import re
 from graphql_client import fetch_reports_async
 from storage import init_db, is_new_report, save_report, is_db_empty
 from telegram_client import send_message
@@ -13,11 +14,7 @@ def escape_markdown(text: str) -> str:
 
 
 def escape_markdown(text: str) -> str:
-    import re
-
-    # Все специальные символы Markdown V2
     escape_chars = r"\_*[]()~`>#+-=|{}.!"
-    # Экранируем каждый символ с помощью \
     return re.sub(f"([{re.escape(escape_chars)}])", r"\\\1", text)
 
 
@@ -36,7 +33,7 @@ def format_report(report):
         f"👤 Reporter: *{reporter}*\n"
         f"🏢 Team: *{team}*\n"
         f"💰 Award: {award}$\n"
-        f"⚠️ Severity: `{severity}`\n"
+        f"⚠️ Severity: *{severity}*\n"
         f"📅 Created: `{created}`\n"
         f"📢 Disclosed: `{disclosed}`\n"
         f"{url}"
@@ -47,7 +44,7 @@ async def first_run_fill_db():
     reports = await fetch_reports_async()
     for r in reversed(reports):
         save_report(r)
-    print(f"Добавлено {len(reports)} репортов в базу как уже отправленные.")
+    print(f"Добавлено {len(reports)} репортов в базу")
 
 
 async def main():
